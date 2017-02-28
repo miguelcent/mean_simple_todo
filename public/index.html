@@ -23,7 +23,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js"></script><!-- load angular -->
     <script src="js/controllers/main.js"></script> <!-- load up our controller -->
     <script src="js/services/todos.js"></script> <!-- load our todo service -->
-    <script src="core.js"></script>
+    <script src="js/core.js"></script>
 
 </head>
 <!-- SET THE CONTROLLER AND GET ALL TODOS -->
@@ -42,9 +42,12 @@
                 <!-- LOOP OVER THE TODOS IN $scope.todos -->
                 <div class="checkbox" ng-repeat="todo in todos">
                     <label>
-                        <input type="checkbox" ng-click="deleteTodo(todo._id)"> {{ todo.text }}
+                        <input type="checkbox" ng-click="toggle(todo._id, selected)" ng-checked="exists(todo._id,selected)"> {{ todo.text }} {{ todo.creationDate }}
                     </label>
                 </div>
+                <div flex="100">
+    </div>
+
 
             </div>
         </div>
@@ -61,6 +64,7 @@
 
                     <!-- createToDo() WILL CREATE NEW TODOS -->
                     <button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add</button>
+                    <button type="submit" class="btn btn-primary btn-lg" ng-click="deleteTodo(selected)">Delete</button>
                 </form>
             </div>
         </div>
