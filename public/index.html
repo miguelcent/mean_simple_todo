@@ -12,6 +12,8 @@
 
     <!-- SCROLLS -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+
+    <link rel="stylesheet" href="./styles/styles.css">
     <style>
         html                    { overflow-y:scroll; }
         body                    { padding-top:50px; }
@@ -36,21 +38,26 @@
         </div>
 
         <!-- TODO LIST -->
+        
         <div id="todo-list" class="row">
             <div class="col-sm-4 col-sm-offset-4">
-
-                <!-- LOOP OVER THE TODOS IN $scope.todos -->
-                <div class="checkbox" ng-repeat="todo in todos">
-                    <label>
-                        <input type="checkbox" ng-click="toggle(todo._id, selected)" ng-checked="exists(todo._id,selected)"> {{ todo.text }} {{ todo.creationDate }}
-                    </label>
-                </div>
-                <div flex="100">
-    </div>
-
-
+                <table>
+                    <tr>
+                        <th>select</th>
+                        <th>to-do body</th> 
+                        <th>date added</th>
+                    </tr>
+                    <tr ng-repeat="todo in todos">
+                        <td><input type="checkbox" ng-click="toggle(todo._id, selected)" ng-checked="exists(todo._id,selected)"></td>
+                        <td>{{ todo.text }}</td>
+                        <td>{{ todo.creationDate | date:'medium'}}</td>
+                    </tr>
+                </table>
             </div>
         </div>
+    </div>
+        
+                <div flex="100">
 
         <!-- FORM TO CREATE TODOS -->
         <div id="todo-form" class="row">
@@ -65,6 +72,7 @@
                     <!-- createToDo() WILL CREATE NEW TODOS -->
                     <button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add</button>
                     <button type="submit" class="btn btn-primary btn-lg" ng-click="deleteTodo(selected)">Delete</button>
+                    <button type="submit" class="btn btn-primary btn-lg" ng-click="open()">Delete</button>
                 </form>
             </div>
         </div>
