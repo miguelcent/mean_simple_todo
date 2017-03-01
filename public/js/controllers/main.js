@@ -55,12 +55,16 @@ angular.module('todoController', [])
         // delete a todo after checking it
         $scope.deleteTodo = function(list) {
             for (i=0; i<list.length; i++){
+                
                 Todos.delete(list[i])
                     // if successful creation, call our get function to get all the new todos
                     .success(function(data) {
                         $scope.todos = data; // assign our new list of todos
                     });
+                
             }
+            
+            $scope.selected = [];
         };
      
     });
