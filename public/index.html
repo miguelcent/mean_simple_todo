@@ -11,36 +11,31 @@
     <title>Node/Angular Todo App</title>
 
     <!-- SCROLLS -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
-
-    
-    <style>
-        html                    { overflow-y:scroll; }
-        body                    { padding-top:50px; }
-        #todo-list              { margin-bottom:30px; }
-    </style>
-
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"><!-- load bootstrap -->
+   
     <!-- SPELLS -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script><!-- load jquery -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js"></script><!-- load angular -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="js/controllers/main.js"></script> <!-- load up our controller -->
     <script src="js/services/todos.js"></script> <!-- load our todo service -->
     <script src="js/core.js"></script>
+    
 
 </head>
 <!-- SET THE CONTROLLER AND GET ALL TODOS -->
-<body ng-controller="mainController">
-    <div class="container">
-
-        <!-- HEADER AND TODO COUNT -->
-        <div class="jumbotron text-center">
-            <h1>I'm a Todo-aholic <span class="label label-info">{{ todos.length }}</span></h1>
+<body ng-controller="mainController">    
+    <!-- HEADER AND TODO COUNT -->
+        <div class="page-header text-center text-top alert alert-info">
+            <h1>I'm a Todo-aholic <small class="label label-info">{{ todos.length }}</small></h1>
         </div>
+    <div class="row">
+
+        
 
         <!-- TODO LIST -->
         
-        
-            <div class="col-sm-4 col-sm-offset-4">
+            <div class="col-md-5 col-md-offset-1">
                 <table class="table table-bordered table-hover">
                     <tr>
                         <th>select</th>
@@ -54,14 +49,9 @@
                     </tr>
                 </table>
             </div>
+             <!-- FORM TO CREATE TODOS -->
         
-    </div>
-        
-                <div flex="100">
-
-        <!-- FORM TO CREATE TODOS -->
-        <div id="todo-form" class="row">
-            <div class="col-sm-8 col-sm-offset-2 text-center">
+            <div id="todo-form" class="col-md-5">
                 <form>
                     <div class="form-group">
 
@@ -71,11 +61,40 @@
 
                     <!-- createToDo() WILL CREATE NEW TODOS -->
                     <button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add</button>
-                    <button type="submit" class="btn btn-primary btn-lg" ng-click="deleteTodo(selected)">Delete</button>
-                    <button type="submit" class="btn btn-primary btn-lg" ng-click="open()">Delete</button>
+                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" ng-disabled="selected.length == 0">Delete</button>
+                    
                 </form>
             </div>
+            <!--<span class="label label-info">{{ selected.length }}</span>-->
+    </div>
+        
+    <div flex="100">
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Deletion of TODOs</h4>
+      </div>
+      <div class="modal-body">
+        <p>Do you really want to delete {{selected.length}} TODOs?</p>
+        <div ng-repeat="todo in todos">
+            <span ng-if="exists(todo._id,selected)"><span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>{{todo.text}} created on {{todo.creationDate | date:'medium'}}</span>
         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="deleteTodo(selected)" ng-disabled="selected.length == 0">Delete</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 
     </div>
 
